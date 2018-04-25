@@ -56,4 +56,4 @@ computed: {
 }
 ```
 >tips
->子组件中的绑定多个相同事件，可多次触发（addEventLinters）, 如child组件，和parant组件同事绑定了@input,可分别触发
+>子组件中的绑定多个相同事件，可多次触发（addEventLinters）, 如child和parant组件同时绑定了@input,可分别触发
