@@ -57,3 +57,21 @@ computed: {
 ```
 >tips
 >子组件中的绑定多个相同事件，可多次触发（addEventLinters）, 如child和parant组件同时绑定了@input,可分别触发
+
+## 子组件使用v-model
+```js
+    <input v-model="searchText">
+    // 等同于
+    <input :value="searchText" @input="searchText = $event.target.value">
+
+    // 使用时 组件上的v-model 有一点区别， 会是@input="searchText = $event"
+    // parent
+    <child v-model=searchText></child>
+
+    // child
+    // 1、设置props
+    props: ['value']
+    // 2、 在input触发时，通过@input传递出去
+    <input :value="value" @input="$emit('input', $event.target.value)">
+    
+```
