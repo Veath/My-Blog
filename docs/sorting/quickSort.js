@@ -49,3 +49,4 @@ function quickSort(myArray, left, right) {
 }
 
 // quickSort([2, 1, 5,4,7, 8])
+export default quickSort

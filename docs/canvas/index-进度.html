@@ -95,6 +95,114 @@ function line(step) {
   })
 }
 
+
+
+/*
+export default {
+  name: 'step',
+  props: ['step'],
+  mounted () {
+    this.drawStep(this.step)
+  },
+  methods: {
+    drawStep (step) {
+      let drawing = document.getElementById('drawing')
+      let ctx = drawing.getContext('2d')
+      let width = drawing.width
+      let height = drawing.height
+      let x1 = 58
+      let y1 = 46
+      let x2 = 660
+      let y2 = 155 - 77
+      let padding = 8
+      y1 += padding
+      y2 -= padding
+      let radio = (y2 - y1) / 2
+      ctx.textAlign = 'center'
+      ctx.font = '28px 微软雅黑'
+
+      ctx.clearRect(0, 0, width, height)
+      let stepWidth = (x2 - x1) / 4 + 10
+      let grd = ctx.createLinearGradient(58, 0, x1 + stepWidth * step, 0)
+      grd.addColorStop(0, '#37EAC5')
+      grd.addColorStop(1, '#46BADF')
+      ctx.lineWidth = radio * 2
+      ctx.lineCap = 'round'
+
+      ctx.beginPath()
+      ctx.moveTo(x1 + radio, y1 + radio)
+      ctx.lineTo(x2 - radio, y1 + radio)
+      ctx.strokeStyle = grd
+      ctx.stroke()
+
+      ctx.beginPath()
+      ctx.moveTo(x2 - radio, y1 + radio)
+      ctx.lineTo(x2 + radio - stepWidth * (4 - step), y1 + radio)
+      ctx.strokeStyle = '#DEDEDE'
+      ctx.stroke()
+
+      // ctx.beginPath()
+      // ctx.moveTo(x1 + radio, y1)
+      // ctx.lineTo(x2 - radio, y1)
+      // ctx.arc(x2 - radio, y1 + radio, radio, -0.5 * Math.PI, 0.5 * Math.PI, false)
+      // ctx.lineTo(x1 + radio, y2)
+      // ctx.arc(x1 + radio, y1 + radio, radio, 0.5 * Math.PI, 1.5 * Math.PI, false)
+      // ctx.closePath()
+      // ctx.fillStyle = grd
+      // ctx.fill()
+      //
+      // ctx.beginPath()
+      // ctx.moveTo(x2 - radio, y1)
+      // ctx.lineTo(x2 + radio - stepWidth * (4 - step), y1)
+      // ctx.arc(x2 - stepWidth * (4 - step), y1 + radio, radio, -0.5 * Math.PI, 0.5 * Math.PI, true)
+      // ctx.lineTo(x2 - radio, y2)
+      // ctx.arc(x2 - radio, y1 + radio, radio, 0.5 * Math.PI, 1.5 * Math.PI, true)
+      // ctx.closePath()
+      // ctx.fillStyle = '#DEDEDE'
+      // ctx.fill()
+
+      let arcCenters = [x2 - 3 * stepWidth, x2 - stepWidth * 2, x2 - stepWidth, x2]
+      arcCenters.forEach((v, i) => {
+        ctx.beginPath()
+        ctx.arc(v, y1 + radio, 18, 0, 2 * Math.PI)
+        ctx.fillStyle = i < step ? grd : '#DEDEDE'
+        ctx.fill()
+        ctx.fillStyle = '#fff'
+        if (i + 1 < step) {
+          ctx.beginPath()
+          ctx.moveTo(v - 9, y1 + radio - 1)
+          ctx.lineTo(v - 2, y1 + radio + 6)
+          ctx.lineTo(v + 9, y1 + radio - 6)
+          ctx.lineWidth = 4
+          ctx.strokeStyle = '#fff'
+          ctx.stroke()
+        } else {
+          ctx.beginPath()
+          ctx.arc(v, y1 + radio, radio - 0.5, 0, 2 * Math.PI)
+          ctx.fill()
+          ctx.closePath()
+        }
+        ctx.fillStyle = '#666'
+        let marginTop = 60
+        switch (i) {
+          case 0:
+            ctx.fillText('基本信息', v, y1 + radio + marginTop)
+            break
+          case 1:
+            ctx.fillText('联系人信息', v, y1 + radio + marginTop)
+            break
+          case 2:
+            ctx.fillText('工作信息', v, y1 + radio + marginTop)
+            break
+          case 3:
+            ctx.fillText('身份确认', v, y1 + radio + marginTop)
+            break
+        }
+      })
+    }
+  }
+}
+*/
 </script>
 
 </html>

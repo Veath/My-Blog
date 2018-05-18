@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas')
+				let ctx = canvas.getContext('2d')
+				let currentAnimationsTime = 1
+        let arcX = 150
+        let arcY = 75
+
+        let rectX = arcX * 1.5
+        let rectY = arcY * 0.5
+				
+				// Math.atan2 求出一个弧度值，也可以表示相对直角三角形对角的角
+				checkPointAngle(trace(Math.atan2((arcY - rectY), (arcX - rectX))))
+
+				animate()
+				
+				// 公式
+				// sin@ = y / r 
+				// cos@ = x / r
+				// 正切 Math.tan 求对边与邻边的比值（斜率）
+				// 反正切 Math.atan 求直角三角形的对边和邻边这两条直角边的比值求出其夹角大小的函数（度数）
+				function animate () {
+					ctx.clearRect(0, 0, 300, 150)
+					// angel为一个角度，已弧度值表示
+					let angle = Math.atan((rectY - arcY) / (rectX - arcX))
+					let stepX = currentAnimationsTime * Math.cos(angle)
+					let stepY = currentAnimationsTime * Math.sin(angle)
+					rectX +=  stepX
+					rectY += stepY
+					drawCircle(arcX, arcY)
+					drawRect(rectX, rectY)
+					requestAnimationFrame(animate)
+				}
+
+				function checkPointAngle (angle) {
+					// 右上方
+					if (angle > 0 && angle > 90) {
+						currentAnimationsTime = -currentAnimationsTime
+					// 左上方
+					} else if (angle > 0) {
+						currentAnimationsTime = currentAnimationsTime
+					// 左下方
+					} else if (angle > -90 ) {
+						currentAnimationsTime = currentAnimationsTime
+					// 右下方
+					} else {
+						currentAnimationsTime = -currentAnimationsTime
+					}
+				}
+
+				// 输入弧度值，return 角度值
+				function trace(x){
+					// 弧度 = 角度 * Math.PI / 180
+					return 180 * x / Math.PI
+				}
+
+        function drawCircle(x, y) {
+					ctx.fillStyle="#FF0000"
+					ctx.beginPath()
+					ctx.arc(x, y, 3 ,0, Math.PI*2, true)
+					ctx.closePath()
+					ctx.fill()
+				}
+				
+				function drawRect(x, y) {
+					ctx.fillStyle="black"
+					ctx.beginPath()
+					// ctx.arc(x, y, 3 ,0, Math.PI * 2, true)
+					ctx.fillRect(x - 1.5, y - 1.5, 5, 5)
+					ctx.closePath()
+					ctx.fill()
+				}
+    </script>
+</body>
+</html>
