@@ -19,6 +19,9 @@
         let rectY = arcY * 0.5
 				
 				// Math.atan2 求出一个弧度值，也可以表示相对直角三角形对角的角
+				// atan2相比atan，atan2可返回坐标系中准确的角度值
+				// 如：trace(Math.atan(-7/ -7))  --> 45
+				// 而 trace(Math.atan2(-7, -7)) --> -135
 				checkPointAngle(trace(Math.atan2((arcY - rectY), (arcX - rectX))))
 
 				animate()
@@ -27,7 +30,7 @@
 				// sin@ = y / r 
 				// cos@ = x / r
 				// 正切 Math.tan 求对边与邻边的比值（斜率）
-				// 反正切 Math.atan 求直角三角形的对边和邻边这两条直角边的比值求出其夹角大小的函数（度数）
+				// 反正切 Math.atan 求直角三角形的对边和邻边这两条直角边的比值求出其夹角大小的函数（度数），已弧度表示
 				function animate () {
 					ctx.clearRect(0, 0, 300, 150)
 					// angel为一个角度，已弧度值表示
@@ -57,7 +60,7 @@
 					}
 				}
 
-				// 输入弧度值，return 角度值
+				// 输入弧度值，求出角度值
 				function trace(x){
 					// 弧度 = 角度 * Math.PI / 180
 					return 180 * x / Math.PI
