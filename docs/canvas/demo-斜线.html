@@ -7,16 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" height="500"></canvas>
     <script>
         let canvas = document.getElementById('canvas')
 				let ctx = canvas.getContext('2d')
 				let currentAnimationsTime = 1
-        let arcX = 150
-        let arcY = 75
+				let ctxWidth = 300
+				let ctxHeight = 500
+        let arcX = ctxWidth / 2
+        let arcY = ctxHeight / 2
 
-        let rectX = arcX * 1.5
-        let rectY = arcY * 0.5
+				let rectX = ctxWidth
+				let rectY = 0
 				
 				// Math.atan2 求出一个弧度值，也可以表示相对直角三角形对角的角
 				// atan2相比atan，atan2可返回坐标系中准确的角度值
@@ -24,27 +26,58 @@
 				// 而 trace(Math.atan2(-7, -7)) --> -135
 				checkPointAngle(trace(Math.atan2((arcY - rectY), (arcX - rectX))))
 
-				animate()
-				
+				move()
+
+				setInterval(() => {
+					arcX = Math.random() * ctxWidth
+					arcY = Math.random() * ctxHeight
+					checkPointAngle(trace(Math.atan2((arcY - rectY), (arcX - rectX))))
+				}, 1000)
+
 				// 公式
 				// sin@ = y / r 
 				// cos@ = x / r
 				// 正切 Math.tan 求对边与邻边的比值（斜率）
 				// 反正切 Math.atan 求直角三角形的对边和邻边这两条直角边的比值求出其夹角大小的函数（度数），已弧度表示
-				function animate () {
-					ctx.clearRect(0, 0, 300, 150)
+				function move () {
+					ctx.clearRect(0, 0, ctxWidth, ctxHeight)
 					// angel为一个角度，已弧度值表示
 					let angle = Math.atan((rectY - arcY) / (rectX - arcX))
-					let stepX = currentAnimationsTime * Math.cos(angle)
-					let stepY = currentAnimationsTime * Math.sin(angle)
+					// 直线距离 < 20 加速攻击
+					// r = y / sin@
+					if (Math.abs((rectY - arcY) / Math.sin(angle)) < 100) {
+						attack(arcX, arcY, rectX, rectY)
+					} else {
+						let stepX = currentAnimationsTime * Math.cos(angle)
+						let stepY = currentAnimationsTime * Math.sin(angle)
+						rectX +=  stepX
+						rectY += stepY
+						drawCircle(arcX, arcY)
+						drawRect(rectX, rectY)
+						requestAnimationFrame(move)
+					}
+				}
+
+				function attack (oX, oY, x, y) {
+					if (rectX > ctxWidth || rectX < 0 || rectY > ctxHeight || rectY < 0) {
+						move()
+						return
+					}
+					ctx.clearRect(0, 0, ctxWidth, ctxHeight)
+					let angle = Math.atan((y - oY) / (x - oX))
+					let stepX = currentAnimationsTime * 5 * Math.cos(angle)
+					let stepY = currentAnimationsTime * 5 * Math.sin(angle)
 					rectX +=  stepX
 					rectY += stepY
 					drawCircle(arcX, arcY)
 					drawRect(rectX, rectY)
-					requestAnimationFrame(animate)
+					requestAnimationFrame(() => {
+						attack(oX, oY, x, y)
+					})
 				}
 
 				function checkPointAngle (angle) {
+					currentAnimationsTime = Math.abs(currentAnimationsTime)
 					// 右上方
 					if (angle > 0 && angle > 90) {
 						currentAnimationsTime = -currentAnimationsTime
