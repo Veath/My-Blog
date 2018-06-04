@@ -3,8 +3,10 @@ const webpack = require('webpack')
 const getView = require('./util')
 const common = require('./webpack.common')
 const merge = require('webpack-merge')
+const config = require('../config')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
@@ -18,15 +20,28 @@ module.exports = merge(common, {
       publicPath: './'
     },
     optimization: {
-      splitChunks: {
-        chunks: 'all'
+      runtimeChunk: {
+        name: 'manifest'
       },
-      runtimeChunk: true
+      splitChunks:{
+        chunks: 'async',
+        minSize: 30000,
+        minChunks: 1,
+        maxAsyncRequests: 5,
+        maxInitialRequests: 3,
+        name: false,
+        cacheGroups: {
+          vendor: {
+            name: 'vendor',
+            chunks: 'initial',
+            priority: -10,
+            reuseExistingChunk: false,
+            test: /node_modules\/(.*)\.js/
+          }
+        }
+      }
     },
     plugins: [
-      new CleanWebpackPlugin(['./dist'], {
-        root: path.resolve(__dirname, '..')
-      }),
       new UglifyJSPlugin({
         sourceMap: true
       }),
@@ -39,6 +54,17 @@ module.exports = merge(common, {
         allChunks: true,
       }),
       new webpack.HashedModuleIdsPlugin(),
+      // copy custom static assets
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, '../static'),
+          to: config.build.assetsSubDirectory,
+          ignore: ['.*']
+        }
+      ]),
+      new CleanWebpackPlugin(['./dist'], {
+        root: path.resolve(__dirname, '..')
+      })
     ]
 })
 
@@ -48,7 +74,7 @@ pages.forEach(pathname => {
     filename: `${htmlname}.html`,
     template: `${pathname}.html`,
     hash: true,
-    chunks: [htmlname],
+    chunks: ['manifest', 'vendor', htmlname],
     minify: {
       removeAttributeQuotes:true,
       removeComments: true,
