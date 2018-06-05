@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const getView = require('./util')
+const util = require('./util')
 const common = require('./webpack.common')
 const merge = require('webpack-merge')
 const config = require('../config')
@@ -10,14 +10,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-let pages = Object.keys(getView('./*html'))
+let pages = Object.keys(util.getView('./*html'))
 module.exports = merge(common, {
     mode: 'production',
     devtool: 'source-map',
     output: {
       filename: path.posix.join('static', 'js/[name].[chunkhash].js'),
       path: path.resolve(__dirname, '../dist'),
-      publicPath: './'
+      publicPath: util.setPublicPath()
     },
     optimization: {
       runtimeChunk: {
@@ -46,7 +46,7 @@ module.exports = merge(common, {
         sourceMap: true
       }),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production')
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }),
 
       new ExtractTextPlugin({

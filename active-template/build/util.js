@@ -1,6 +1,7 @@
+const config = require('../config')
 const glob = require('glob')
 const path = require('path')
-function getView (globPath) {
+exports.getView = function (globPath) {
   let files = glob.sync(globPath)
 
   let entries = {},
@@ -21,4 +22,17 @@ function getView (globPath) {
   return entries
 }
 
-module.exports = getView
+exports.setPublicPath = function () {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return config.dev.assetsPublicPath
+    case 'production':
+    case 'build':
+    case 'uat':
+      return config.build.assetsPublicPath
+    case 'cdn':
+      return config.build.assetsCdnPath
+    default:
+      return config.dev.assetsPublicPath
+  }
+}

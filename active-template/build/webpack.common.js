@@ -1,9 +1,10 @@
 const path = require('path')
 const glob = require('glob')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const getView = require('./util')
+const util = require('./util')
 
-let entriesObj = getView('./src/entrance/*.js')
+let entriesObj = util.getView('./src/entrance/*.js')
+
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -45,6 +46,10 @@ module.exports = {
         include: [resolve('src'), resolve('test')]
       },
       {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+      },
+      {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
@@ -58,6 +63,9 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
+    extensions: [ '.tsx', '.ts', '.js' ],
+      alias: {
+        'vue': 'vue/dist/vue.js'
+      }
   }
 }
