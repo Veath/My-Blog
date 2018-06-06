@@ -1,13 +1,13 @@
 const path = require('path')
 const glob = require('glob')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const util = require('./util')
+const utils = require('./util')
 
-let entriesObj = util.getView('./src/entrance/*.js')
-
+let entriesObj = utils.getView('./src/entrance/*.js')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
+
 module.exports = {
   entry: entriesObj,
   output: {
@@ -33,12 +33,16 @@ module.exports = {
                 plugins: (loader) => [
                   require('postcss-import')({ root: loader.resourcePath}),
                   require('postcss-cssnext')(),
+                  require('postcss-adaptive')({
+                    remUnit: 75,
+                    autoRem: true
+                  }),
                   require('cssnano')({'autoprefixer': false})
                 ]
               }
             }
           ]
-        })
+        }),
       },
       {
         test: /\.js$/,
@@ -46,26 +50,24 @@ module.exports = {
         include: [resolve('src'), resolve('test')]
       },
       {
-        test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
-      },
-      {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-           'file-loader'
-        ]
-      }
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 1,
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+        }
+      },
     ]
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
-      alias: {
-        'vue': 'vue/dist/vue.js'
-      }
-  }
+    alias: {
+      'static': path.resolve(__dirname, '../static')
+    }
+  },
 }

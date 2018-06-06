@@ -1,8 +1,9 @@
 const webpack = require('webpack')
-const util = require('./util')
+const utils = require('./util')
 const common = require('./webpack.common')
 const merge = require('webpack-merge')
 const config = require('../config')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
@@ -10,12 +11,10 @@ Object.keys(common.entry).forEach(function (name) {
   common.entry[name] = ['./build/dev-client'].concat(common.entry[name])
 })
 
-let pages = Object.keys(util.getView('./*html'))
+let pages = Object.keys(utils.getView('./*html'))
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
-  // run start 走这里！
-  // run dev 走server.js
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: true,
@@ -39,10 +38,11 @@ module.exports = merge(common, {
     namedModules: true
   },
   plugins: [
+    // new CleanWebpackPlugin(['dist']),
     // new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
-      filename: 'css/[name].[contenthash].css',
+      filename: 'css/[name].[hash].css',
       allChunks: true,
     }),
   ]
@@ -63,5 +63,6 @@ pages.forEach(pathname => {
       removeStyleLinkTypeAttributes:true
     }
   }
+
   module.exports.plugins.push(new HtmlWebpackPlugin(conf))
 })
