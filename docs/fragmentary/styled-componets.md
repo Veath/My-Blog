@@ -115,6 +115,11 @@ import {StyledTitle, Wrapper, StyledButton} from './home'
 ![img](https://s1.ax1x.com/2018/09/05/ipbj9f.png)
 可以看到css color值是动态传进去的
 
-以上是基本的用法
+以上是基本的用法。
+
 详细请看
-[https://github.com/styled-components/vue-styled-components]: http://connorlin.github.io/ "ConnorLin's Blog"
+
+[vue-styled-components](https://github.com/styled-components/vue-styled-components)
+
+[styled-components](https://www.styled-components.com/docs)
+
