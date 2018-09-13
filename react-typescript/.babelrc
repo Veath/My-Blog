@@ -1,0 +1,35 @@
+{
+    "presets": [
+        "env",
+        "react"
+    ],
+    "plugins": [
+        [
+            "transform-runtime",
+            {
+                "helpers": false,
+                "polyfill": false
+            }
+        ],
+        [
+            "transform-object-rest-spread"
+        ]  
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                [
+                    "babel-plugin-styled-components",
+                    {
+                        "displayName": true
+                    }
+                ]
+            ]
+        },
+        "production": {
+            "plugins": [
+                "transform-remove-console"
+            ]
+        }
+    }
+}
