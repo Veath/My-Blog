@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我要还款</title>
+    <script>
+        var dpr,rem,scale,docEl=document.documentElement,clientWidth=docEl.clientWidth || window.screen.width,fontEl=document.createElement("style"),metaEl=document.querySelector('meta[name="viewport"]');dpr=window.devicePixelRatio ||1,rem=clientWidth*dpr/10,scale=1/dpr,metaEl.setAttribute("content","width="+dpr*clientWidth+",initial-scale="+scale+",maximum-scale="+scale+", minimum-scale="+scale+",user-scalable=no"),docEl.setAttribute("data-dpr",dpr),docEl.firstElementChild.appendChild(fontEl),fontEl.innerHTML="html{font-size:"+rem+"px!important;}",window.rem2px=function(e){return(e=parseFloat(e))*rem},window.px2rem=function(e){return(e=parseFloat(e))/rem},window.dpr=dpr,window.rem=rem;
+    </script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+</html>

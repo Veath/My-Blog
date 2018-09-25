@@ -1,0 +1,70 @@
+{
+  "name": "mobile-repayment",
+  "version": "1.0.0",
+  "description": "repayment",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development SERVER_ENV=dev webpack-dev-server --mode development --open --progress",
+    "build:dev": "cross-env NODE_ENV=dev SERVER_ENV=dev webpack --mode production --progress",
+    "build:uat": "cross-env NODE_ENV=uat SERVER_ENV=uat webpack --mode production --progress",
+    "build:pre": "cross-env NODE_ENV=pre SERVER_ENV=pre webpack --mode production --progress",
+    "build:prod": "cross-env NODE_ENV=prod SERVER_ENV=prod webpack --mode production --progress",
+    "build:cdn": "cross-env NODE_ENV=cdn SERVER_ENV=cdn webpack --mode production --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.dafycredit.com/ef/mobile-repayment.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Veath",
+  "license": "ISC",
+  "sideEffects": false,
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-styled-components": "^1.7.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.2.0",
+    "dev-ip": "^1.0.1",
+    "eruda": "^1.5.3",
+    "eslint": "^5.5.0",
+    "eslint-plugin-babel": "^5.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "typescript": "^3.0.3",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.18.0",
+    "webpack-bundle-analyzer": "^3.0.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "@types/react": "^16.4.14",
+    "@types/react-dom": "^16.0.7",
+    "@types/react-router-dom": "^4.3.0",
+    "@types/styled-components": "^3.0.1",
+    "prop-types": "^15.6.2",
+    "rc-animate": "^2.5.3",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-router-dom": "^4.3.1",
+    "rmc-dialog": "^1.1.1",
+    "rmc-feedback": "^2.0.0",
+    "styled-components": "^3.4.6",
+    "whatwg-fetch": "^3.0.0"
+  }
+}
