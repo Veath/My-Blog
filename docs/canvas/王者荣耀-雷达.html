@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <title>demo</title>
+</head>
+
+
+<style type="text/css">
+    canvas {
+        display: block;
+        width: 500px;
+        height: 500px;
+    }
+</style>
+
+<body>
+    <canvas class="radar"></canvas>
+    <script>
+        var canvas = document.getElementsByClassName('radar')[0];
+
+        canvas.width = 500;
+
+        canvas.height = 500;
+
+        var ctx = canvas.getContext('2d');
+
+        ctx.save();
+
+        ctx.strokeStyle = '#888888'; // 设置线条颜色
+
+        var lineArr = [];
+
+        var rAngle = Math.PI * 2 / 6; // 算出每一个内角和
+
+        console.log(rAngle);
+
+        var rCenter = 250; // 确定中心点
+
+        var curR = 100; // 确定半径长度
+
+        ctx.beginPath();
+
+        for (var i = 0; i < 6; i++) {
+
+            lineArr[i] = {};
+
+            lineArr[i].y = rCenter + curR * Math.cos(rAngle * i);
+
+            lineArr[i].x = rCenter + curR * Math.sin(rAngle * i);
+
+            ctx.lineTo(lineArr[i].x, lineArr[i].y);
+
+        }
+
+        ctx.closePath();
+
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.strokeStyle = '#e8ddc7';
+
+        ctx.save();
+
+        ctx.beginPath();
+
+        for (var j = 0; j < 3; j++) {
+
+            ctx.moveTo(lineArr[j].x, lineArr[j].y);
+
+            ctx.lineTo(lineArr[j + 3].x, lineArr[j + 3].y);
+
+            ctx.stroke();
+
+        }
+
+        ctx.closePath();
+
+        ctx.restore();
+
+        var letterData = {
+
+            'S': 1,
+
+            'A': 1.5,
+
+            'B': 2,
+
+            'C': 2.5,
+
+            'D': 3
+
+        }
+
+        // 绘制文本
+
+        var rData = [
+
+            ['生存', 'S'],
+
+            ['经济', 'S'],
+
+            ['输出', 'S'],
+
+            ['KDA', 'B'],
+
+            ['打野', 'B'],
+
+            ['推进', 'S']
+
+        ]
+
+        ctx.lineWidth = 2; //设置数据填充区域的线条颜色
+
+        ctx.strokeStyle = '#dd3f26'; //设置填充区域的颜色
+        ctx.beginPath();
+
+        for (var i = 0; i < 6; i++) {
+
+            lineArr[i].yEnd = rCenter + curR * Math.cos(rAngle * i) / (letterData[rData[i][1]]);
+
+            lineArr[i].xEnd = rCenter + curR * Math.sin(rAngle * i) / (letterData[rData[i][1]]);
+
+            ctx.lineTo(lineArr[i].xEnd, lineArr[i].yEnd);
+
+            console.log(lineArr);
+
+        }
+
+        ctx.closePath();
+
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+
+        ctx.fill();
+
+        ctx.restore();
+
+        var point = 3; //设置数据填充区域的小圆点大小
+
+        for (var i = 0; i < 6; i++) {
+
+            ctx.beginPath();
+
+            ctx.arc(lineArr[i].xEnd, lineArr[i].yEnd, point, 0, Math.PI * 2);
+
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.8)';
+
+            ctx.fill();
+
+            console.log(lineArr);
+
+        }
+
+        // 绘制文本
+        ctx.save();
+
+        var fontSize = 16;
+
+        var maxfontSize = 30;
+
+        ctx.font = fontSize + 'px Microsoft Yahei';
+
+        ctx.textBaseline = "middle";
+
+        ctx.textAlign = "center";
+        ctx.fillStyle = '#000';
+
+        for (var i = 0; i < 6; i++) {
+
+            var y = rCenter + curR * Math.cos(rAngle * i);
+
+            var x = rCenter + curR * Math.sin(rAngle * i);
+
+            console.log(Math.sin(rAngle * i));
+            var s_width = ctx.measureText(rData[i][0]).width;
+
+            if (x == rCenter) {
+
+                if (y > rCenter) {
+
+                    ctx.fillText(rData[i][0], x - s_width / 2, y + fontSize);
+
+                } else {
+
+                    ctx.fillText(rData[i][0], x - s_width / 2, y - fontSize);
+
+                }
+
+            } else if (x > rCenter) {
+
+                console.log(rData[i][0]);
+                ctx.fillText(rData[i][0], x + s_width, y);
+                // ctx.fillText(rData[i][0], x + s_width * 1.5, y);
+
+            } else {
+
+                ctx.fillText(rData[i][0], x - s_width * 1.5, y);
+
+            }
+
+        }
+
+        ctx.font = '30px Microsoft Yahei bold';
+
+        ctx.fillStyle = '#d7431f';
+
+
+        for (var i = 0; i < 6; i++) {
+
+            var y = rCenter + curR * Math.cos(rAngle * i);
+
+            var x = rCenter + curR * Math.sin(rAngle * i);
+
+            var M_width = ctx.measureText(rData[i][1]).width;
+            var s_width = ctx.measureText(rData[i][0]).width;
+
+            if (x == rCenter) {
+
+                if (y > rCenter) {
+
+                    ctx.fillText(rData[i][1], x + M_width / 2, y + fontSize);
+
+                } else {
+
+                    ctx.fillText(rData[i][1], x + M_width / 2, y - fontSize);
+
+                }
+
+            } else if (x > rCenter) {
+
+                console.log(rData[i][0]);
+
+                // ctx.fillText(rData[i][1], x + M_width, y);
+                ctx.fillText(rData[i][1], x + s_width, y);
+
+            } else {
+
+                ctx.fillText(rData[i][1], x - M_width, y);
+
+            }
+
+        }
+
+        ctx.save();
+
+    </script>
+</body>
+
+</html>
