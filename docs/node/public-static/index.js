@@ -4,7 +4,7 @@ const join = require('path').join;
 const fs = require('fs');
 
 const root = __dirname;
-console.log(root);
+console.log(root, process.cwd());
 
 http.createServer((req, res) => {
     const url = parse(req.url);
