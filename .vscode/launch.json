@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}/docs/node/express-server/photo/app.js"
+            "program": "${workspaceFolder}/docs/node/express-server/shoutbox/bin/www"
         }
     ]
 }
