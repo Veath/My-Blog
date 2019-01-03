@@ -33,6 +33,6 @@ export default {
         const data = {
             on: {...transition}
         }
+        return h('transition', data, children)
     }
-    return h('transition', data, children)
 }

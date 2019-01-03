@@ -40,7 +40,7 @@ const bubblingSort3 = function (arr) {
                 recordSide = j;
             }
         }
-        recordSide = recordSide;
+        eachNum = recordSide;
         if (sorted) return arr;
     }
 }
