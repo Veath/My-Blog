@@ -1,0 +1,21 @@
+{
+  "name": "menu-ts",
+  "version": "1.0.0",
+  "description": "learn react component ts from Hotell/blogposts ultimate-react-component-patterns",
+  "main": "index.js",
+  "author": "veath",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.8.5",
+    "@types/react-dom": "^16.8.2",
+    "typescript": "^3.3.3333"
+  },
+  "scripts": {
+    "tsc": "tsc --init"
+  },
+  "dependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "tslib": "^1.9.3"
+  }
+}
