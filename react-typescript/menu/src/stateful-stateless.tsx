@@ -1,4 +1,4 @@
-import React, { ComponentType, SFC, MouseEvent, Component} from 'react'
+import React, { SFC, MouseEvent, Component} from 'react'
 import { render } from 'react-dom'
 
 import { witchDefaultProps } from './utils'
