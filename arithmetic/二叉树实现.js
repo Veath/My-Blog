@@ -123,7 +123,7 @@ function removeItem(root, number) {
              //需要移除的节点包含两个子节点
              var aux = minItem(root.right)
              root.key = aux.key
-             root.right = removeNode(root.right, axu.key)
+             root.right = removeItem(root.right, axu.key)
              return root
         }
     }
