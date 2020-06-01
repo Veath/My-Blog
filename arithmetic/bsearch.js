@@ -5,8 +5,8 @@ function bSearch(list, value) {
 function bSearchInner(list, start, end, value) {
     if(list.length <= 0) return
 
-    const middle = start + (end- start) / 2
-    if(list[~~middle] === value) {
+    const middle = ~~(start + (end- start) / 2)
+    if(list[middle] === value) {
         return middle
     } else if (list[middle] > value) {
         return bSearchInner(list, start, middle - 1, value)
@@ -24,7 +24,7 @@ function bSearch1(list, value) {
     let height = list.length - 1
 
     while(low <= height) {
-        const middle = low + (height - low) / 2
+        const middle = ~~(low + (height - low) / 2)
         if(list[middle] > value) {
             height = middle - 1
         } else if (list[middle] < value) {
@@ -42,7 +42,7 @@ function bSearch2(list, value) {
     let height = list.length - 1
 
     while(low <= height) {
-        const middle = low + (height - low) / 2
+        const middle = ~~(low + (height - low) / 2)
         if (list[middle] > value) {
             height = middle - 1
         } else if (list[middle] < value) {
@@ -60,7 +60,7 @@ function bSearch3(list, value) {
     let height = list.length - 1
 
     while(low <= height) {
-        const middle = low + (height - low) / 2
+        const middle = ~~(low + (height - low) / 2)
         if (list[middle] >= value) {
             if (middle === 0 || list[middle - 1] < value) {
                 return middle
@@ -78,7 +78,7 @@ function bSearch4(list, value) {
     let height = list.length - 1
 
     while(low <= height) {
-        const middle = low + (height - low) / 2
+        const middle = ~~(low + (height - low) / 2)
         if (list[middle] > value) {
             height = middle - 1
         } else if (list[middle] <= value) {
