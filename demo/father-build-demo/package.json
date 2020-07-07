@@ -1,0 +1,12 @@
+{
+  "name": "father-build-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "father-build"
+  },
+  "devDependencies": {
+    "father-build": "^1.18.1"
+  }
+}
