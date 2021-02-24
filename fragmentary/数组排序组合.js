@@ -19,26 +19,45 @@ function transform(input) {
   let result = [];
 
   while (queue.length) {
-    let data = [];
     const item = queue.shift();
+    let data = [{ [temp.id]: item }];
+
     input.forEach((inp, index) => {
       let cache = [];
       inp.types.forEach((i) => {
-        if (!index) {
-          cache.push({ [temp.id]: item, [inp.id]: i });
-        } else {
-          data.forEach((j) => {
-            cache.push({ ...j, [inp.id]: i });
-          });
-        }
+        data.forEach((j) => {
+          cache.push({ ...j, [inp.id]: i });
+        });
       });
       data = cache;
-      cache = [];
     });
     result = result.concat(data);
   }
 
   return result;
+}
+
+function transform(data, result = []) {
+  if (!data.length) return result;
+
+  const temp = data.shift();
+
+  if (!result.length) {
+    return transform(
+      data,
+      temp.types.map((item) => ({ [temp.id]: item }))
+    );
+  }
+
+  const newResult = [];
+
+  for (let i of result) {
+    for (let j of temp.types) {
+      newResult.push({ ...i, [temp.id]: j });
+    }
+  }
+
+  return transform(data, newResult);
 }
 
 console.log(
