@@ -37,11 +37,11 @@ function print(data, n = data.length) {
   }
 
   for (let i = 0; i < n; i++) {
-    [data[i], data[n - 1]] = [data[n - 1], [data[i]]];
+    [data[i], data[n - 1]] = [data[n - 1], data[i]];
 
     print(data, n - 1);
 
-    [data[i], data[n - 1]] = [data[n - 1], [data[i]]];
+    [data[i], data[n - 1]] = [data[n - 1], data[i]];
   }
 }
 
