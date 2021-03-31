@@ -94,4 +94,21 @@ const resolvePromise = (promise, result, resolve, reject) => {
   resolve(result);
 };
 
+Promise.all = function (promises) {
+  return new Promise((resolve, reject) => {
+    let values = [];
+    let count = 0;
+    promises.forEach((promise, index) => {
+      promise.then((value) => {
+        console.log('value:', value, 'index:', index);
+        values[index] = value;
+        count++;
+        if (count === promises.length) {
+          resolve(values);
+        }
+      }, reject);
+    });
+  });
+};
+
 module.exports = Promise;
