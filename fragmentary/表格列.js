@@ -15,6 +15,7 @@ const getColumnKey = (num) => {
     return getColumnKey(x - 1) + keys[(y || keys.length) - 1];
   }
 };
+
 getColumnKey(1000);
 
 const getColumnKey2 = (n) => {
@@ -29,3 +30,15 @@ const getColumnKey2 = (n) => {
 };
 
 getColumnKey2(1000);
+
+const getColumnKey3 = (num) => {
+  const keys = getAZ();
+  num--;
+  if (num < keys.length) {
+    return keys[num];
+  } else {
+    const x = Math.floor(num / keys.length);
+    const y = num % keys.length;
+    return getColumnKey(x) + keys[y];
+  }
+};
