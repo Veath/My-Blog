@@ -16,3 +16,16 @@ const getColumnKey = (num) => {
   }
 };
 getColumnKey(1000);
+
+const getColumnKey2 = (n) => {
+  const result = [];
+  while (n > 0) {
+    n--;
+    const char = n % 26;
+    result.unshift(String.fromCharCode(65 + char));
+    n = Math.floor(n / 26);
+  }
+  return result.join('');
+};
+
+getColumnKey2(1000);
