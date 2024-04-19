@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="1125" height="325" id="drawing" style="width:100%"></canvas>
+    <script>
+        var vue = {
+            wave1 (translate) {
+                let height = this.drawing.height
+                this.wave('rgba(146, 240, 240, .7)', height / 2, height * 2 / 3, translate)
+            },
+            wave2 (translate) {
+                let height = this.drawing.height
+                this.wave('rgba(157, 248, 248, .5)', height / 3, height / 3, translate)
+            },
+            wave3 (translate) {
+                let height = this.drawing.height
+                this.wave('rgba(177, 240, 240, .5)', height / 2, height / 3, translate)
+            },
+            animate (conf) {
+                let self = this
+                let ctx = self.drawing.getContext('2d')
+                let width = self.drawing.width
+                let height = self.drawing.height
+                let requestAnimationFrame = window.requestAnimationFrame || function (fn) {
+                    return setTimeout(fn, 15)
+                }
+                self.timer = requestAnimationFrame(function () {
+                    ctx.clearRect(0, 0, width, height)
+                    conf.start3 += conf.a3
+                    conf.start2 += conf.a2
+                    conf.start1 += conf.a1
+                    self.wave3(conf.start3 % width)
+                    self.wave2(conf.start2 % width)
+                    self.wave1(conf.start1 % width)
+                    self.animate(conf)
+                })
+            },
+            wave (color, crest, origin, translate) {
+                let width = this.drawing.width
+                let height = this.drawing.height
+                let ctx = this.drawing.getContext('2d')
+                ctx.beginPath()
+                ctx.moveTo(0, height)
+                for (let x = 0; x <= 360; x++) {
+                    let dot = {x, y: Math.sin(Math.PI * x / 90)}
+                    ctx.lineTo(dot.x * width / 180 - translate, origin - dot.y * crest / 2)
+                }
+                ctx.lineTo(width, height)
+                ctx.fillStyle = color
+                ctx.fill()
+            },
+            mounted () {
+                this.drawing = document.getElementById('drawing')
+                let width = this.drawing.width
+                let conf = {
+                    start1: width / 3,
+                    start2: width / 6,
+                    start3: width / 2,
+                    a1: 5,
+                    a2: 10,
+                    a3: 7.5
+                }
+                this.animate(conf)
+            },
+        }
+        vue.mounted()
+    </script>
+</body>
+</html>

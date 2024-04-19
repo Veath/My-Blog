@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+		<!-- 波浪形loading -->
+    <svg width="300" height="150">
+      <circle id="cLeft" cx="120" cy="75" r="10" />
+			<circle id="cCenter" cx="150" cy="75" r="10" />
+			<circle id="cRight" cx="180" cy="75" r="10" />
+		</svg>
+		<!-- <svg width="300" height="150">
+			<circle id="cLeft" cx="120" cy="75" r="10" />
+			<circle id="cCenter" cx="150" cy="75" r="10" />
+			<circle id="cRight" cx="180" cy="75" r="10" />
+		</svg> -->
+		<script>
+			// 三角函数 y = sin(x)，动画中cx不变，cy上下移动
+			let cLeft = document.getElementById('cLeft'),
+				cCenter = document.getElementById('cCenter'),
+				cRight = document.getElementById('cRight'),
+				currentAnimationsTime = 0
+
+			const centerY = 75
+			const amplitude = 20
+			animate()
+			function animate () {
+				cLeft.setAttribute('cy', centerY + (amplitude * Math.sin(currentAnimationsTime)))
+				cCenter.setAttribute('cy', centerY + (amplitude * Math.sin(currentAnimationsTime - 1)))
+				cRight.setAttribute('cy', centerY + (amplitude * Math.sin(currentAnimationsTime - 2)))
+				currentAnimationsTime += 0.15
+				requestAnimationFrame(animate)
+			}
+		</script>
+</body>
+</html>
